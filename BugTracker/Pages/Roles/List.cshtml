@@ -17,32 +17,36 @@
     <div class="card-body">
         <table id="" class="display table table-hover table-bordered card-text">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Roles Assigned</th>
+                <th>Roles</th>
+                <th>Users with role</th>
+                <th>Action</th>
                 <th></th>
             </tr>
-            @if (Model.Roles.Count() == 0)
-            {
-                <tr><td colspan="4" class="text-center">No Roles</td></tr>
-            }
-            else
-            {
-                foreach (IdentityRole role in Model.Roles)
+            @{
+                var roleCount = Model.Roles.Count();
+                if (roleCount == 0)
                 {
-                    <tr>
-                        <td>@role.Name</td>
-                        <td>@(await Model.GetMembersString(role.Name))</td>
-                        <td class="text-center">
-                            <form asp-page="List" method="post">
-                                <a class="btn btn-outline-info" asp-page="Editor"
-                                   asp-route-id="@role.Id" asp-route-mode="edit">Edit</a>
-                                <button type="submit" class="btn btn-danger">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                    <tr><td colspan="4" class="text-center">No Roles</td></tr>
+                }
+                else
+                {
+                    // Opens one DataReader
+                    for (int i = 0; i < roleCount; i++)
+                    {
+        <tr>
+            <td>@Model.Roles.ElementAt(i).Name</td>
+            <td>@(await Model.GetMembersString(Model.Roles.ElementAt(i).Name))</td>
+            <td class="text-center">
+                <form asp-page="List" method="post">
+                    <a class="btn btn-outline-info" asp-page="Editor"
+                       asp-route-id="@Model.Roles.ElementAt(i).Id" asp-route-mode="edit">Edit</a>
+                    <button type="submit" asp-route-id="@Model.Roles.ElementAt(i).Id" class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+                    }
                 }
             }
         </table>
@@ -50,34 +54,43 @@
 </div>
 
 @functions {
-    public class ListModel : AdminPageModel
+    [Authorize(Roles = "Admin")]
+    public class ListModel : PageModel
     {
         public UserManager<IdentityUser> UserManager;
+
         public RoleManager<IdentityRole> RoleManager;
-        public ListModel(UserManager<IdentityUser> userManager,
- RoleManager<IdentityRole> roleManager)
+
+        public ListModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;
             RoleManager = roleManager;
         }
+
         public IEnumerable<IdentityRole> Roles { get; set; }
+        public IEnumerable<IdentityUser> Users { get; set; }
+
         public void OnGet()
         {
+            Users = UserManager.Users;
             Roles = RoleManager.Roles;
         }
+
         public async Task<string> GetMembersString(string role)
         {
-            IEnumerable<IdentityUser> users
-            = (await UserManager.GetUsersInRoleAsync(role));
-            string result = users.Count() == 0
-            ? "No members"
-            : string.Join(", ", users.Take(3).Select(u => u.UserName).ToArray());
+            IEnumerable<IdentityUser> users = (await UserManager.GetUsersInRoleAsync(role));
+
+            string result = users.Count() == 0 ? "No members" : string.Join(", ", users.Take(3).Select(u => u.UserName).ToArray());
             return users.Count() > 3 ? $"{result}, (plus others)" : result;
         }
+
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            IdentityRole role = await RoleManager.FindByIdAsync(id);
+            IdentityRole role = await RoleManager
+                .FindByIdAsync(id);
+
             await RoleManager.DeleteAsync(role);
+
             return RedirectToPage();
         }
     }

@@ -35,7 +35,8 @@
 </div>
 
 @functions {
-    public class CreateModel : AdminPageModel
+    [Authorize(Roles = "Admin")]
+    public class CreateModel : PageModel
     {
         public UserManager<IdentityUser> UserManager;
         public CreateModel(UserManager<IdentityUser> usrManager)

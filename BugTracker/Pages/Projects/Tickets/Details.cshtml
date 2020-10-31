@@ -15,8 +15,8 @@
                     @{
                         if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
                         {
-                            <a class="btn btn-danger float-right" asp-page="./Delete" asp-route-id="@Model.Ticket.ID">Delete</a>
-                            <a class="btn btn-info float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Ticket.ID">Edit Ticket Details</a>
+                        <a class="btn btn-danger float-right" asp-page="./Delete" asp-route-id="@Model.Ticket.ID">Delete</a>
+                        <a class="btn btn-info float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Ticket.ID">Edit Ticket Details</a>
                         }
                     }
                     <h3 class="text-uppercase mb-0">
@@ -51,126 +51,127 @@
             </div>
         </div>
     </div>
+</div>
 
-    @*
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="text-uppercase mb-0">Comments</h3>
-                </div>
-                <div class="card-body">
-                    <table id="" class=" display table card-text">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Comment</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>@Html.DisplayFor(model => model.Ticket.Creator)</td>
-                                <td>Ticket was created</td>
-                                <td>@Html.DisplayFor(model => model.Ticket.CreationDate)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <input type="text" placeholder="Add a comment" aria-label="Add a comment" aria-describedby="button-addon2" class="form-control">
-                            <div class="input-group-append">
-                                <button id="button-addon2" type="button" class="btn btn-primary">Send</button>
-                            </div>
+@*
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-uppercase mb-0">Comments</h3>
+            </div>
+            <div class="card-body">
+                <table id="" class=" display table card-text">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Comment</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Html.DisplayFor(model => model.Ticket.Creator)</td>
+                            <td>Ticket was created</td>
+                            <td>@Html.DisplayFor(model => model.Ticket.CreationDate)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <input type="text" placeholder="Add a comment" aria-label="Add a comment" aria-describedby="button-addon2" class="form-control">
+                        <div class="input-group-append">
+                            <button id="button-addon2" type="button" class="btn btn-primary">Send</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>*@
+        </div>
+    </div>*@
 
-    @*
-            <!--Tickets
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-uppercase mb-0">
-                            Tickets
+@*
+        <!--Tickets
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-uppercase mb-0">
+                        Tickets
+                        @{
+                            if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                            {
+                                <a class="btn btn-primary float-right" asp-page="Tickets/Create">Create New Ticket</a>
+                            }
+                        }
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table id="" class="display table table-bordered table-hover card-text">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Title
+                                </th>
+                                <th>
+                                    Created By
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             @{
-                                if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                for (int i = 0; i < Model.Project.Tickets.Count; i++)
                                 {
-                                    <a class="btn btn-primary float-right" asp-page="Tickets/Create">Create New Ticket</a>
+                                    <tr>
+                                        <td>
+                                            <a asp-page="./Tickets/Details" asp-route-id="@Model.Project.Tickets.ElementAt(i).ID">
+                                                @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Title)
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Creator)
+                                        </td>
+                                        <td>
+                                            @if (Model.Project.Tickets.ElementAt(i).Status == Status.Completed)
+                                            {
+                                                <div class="flex-grow-1 d-flex align-items-center">
+                                                    <div class="dot-sm mr-3 bg-green"></div>
+                                                    <div class="text">
+                                                        <h6 class="mb-0">
+                                                            @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Status)
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (Model.Project.Tickets.ElementAt(i).Status == Status.InProgress)
+                                            {
+                                                <div class="flex-grow-1 d-flex align-items-center">
+                                                    <div class="dot-sm mr-3 bg-blue"></div>
+                                                    <div class="text">
+                                                        <h6 class="mb-0">
+                                                            @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Status)
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="flex-grow-1 d-flex align-items-center">
+                                                    <div class="dot-sm mr-3 bg-red"></div>
+                                                    <div class="text">
+                                                        <h6 class="mb-0">
+                                                            @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Status)
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
                                 }
                             }
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <table id="" class="display table table-bordered table-hover card-text">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Title
-                                    </th>
-                                    <th>
-                                        Created By
-                                    </th>
-                                    <th>
-                                        Status
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    for (int i = 0; i < Model.Project.Tickets.Count; i++)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <a asp-page="./Tickets/Details" asp-route-id="@Model.Project.Tickets.ElementAt(i).ID">
-                                                    @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Title)
-                                                </a>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Creator)
-                                            </td>
-                                            <td>
-                                                @if (Model.Project.Tickets.ElementAt(i).Status == Status.Completed)
-                                                {
-                                                    <div class="flex-grow-1 d-flex align-items-center">
-                                                        <div class="dot-sm mr-3 bg-green"></div>
-                                                        <div class="text">
-                                                            <h6 class="mb-0">
-                                                                @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Status)
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                }
-                                                else if (Model.Project.Tickets.ElementAt(i).Status == Status.InProgress)
-                                                {
-                                                    <div class="flex-grow-1 d-flex align-items-center">
-                                                        <div class="dot-sm mr-3 bg-blue"></div>
-                                                        <div class="text">
-                                                            <h6 class="mb-0">
-                                                                @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Status)
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="flex-grow-1 d-flex align-items-center">
-                                                        <div class="dot-sm mr-3 bg-red"></div>
-                                                        <div class="text">
-                                                            <h6 class="mb-0">
-                                                                @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Status)
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                }
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>-->
-    *@
+        </div>
+    </div>-->
+*@

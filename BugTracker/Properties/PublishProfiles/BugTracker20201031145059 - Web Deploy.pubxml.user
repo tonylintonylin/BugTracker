@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0oDJ6BdMVkOz24ihPM0tEQAAAAACAAAAAAAQZgAAAAEAACAAAADJB77wdnqbkd7FK0X5u4jskC/SE+eIvUNGkYm21mEj7wAAAAAOgAAAAAIAACAAAACDYD88ZBPGtgmIEyRHEcEYfFpon/nWcLcnPd+Lr9BGZoAAAACoFnvl7In4reYw3cfdPwXpRNm4cWK8yiIIfpeOvV7KO3JtdTrmp4B0kDRgaS/Ug+Jfw6jxUyGlIojcpw5iv0HQ2w2TYZCTwqQ2qIP4UF8CzBDL1epEV7CBW4Dy4pba9fMm8MCt4nBT+X4fPhPlPbOP+kS4sscEh25Doz019ls1y0AAAAB+GNoeLTN/YC8nPFabq+wBgsTjZY5Jh5zg55po47TiH09VkJLUkvVcDckQp3tPaEbu2y1+1CbybCbRNsHZIPgy</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:bugtrackerdbserver.database.windows.net,1433%3bInitial Catalog=BugTracker_db%3bUser Id=tonylintonylin%40bugtrackerdbserver%3bPassword=741236985Aa!</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="BugTracker.Data.ApplicationDbContext">
+      <Value>Data Source=tcp:bugtrackerdbserver.database.windows.net,1433%3bInitial Catalog=BugTracker_db%3bUser Id=tonylintonylin%40bugtrackerdbserver%3bPassword=741236985Aa!</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

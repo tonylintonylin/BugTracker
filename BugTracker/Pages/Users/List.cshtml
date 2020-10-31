@@ -17,7 +17,6 @@
     <div class="card-body">
         <table id="" class="display table table-hover table-bordered card-text">
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Modify</th>
@@ -31,7 +30,6 @@
                 foreach (IdentityUser user in Model.Users)
                 {
                     <tr>
-                        <td>@user.Id</td>
                         <td>@user.UserName</td>
                         <td>@user.Email</td>
                         <td class="text-center">
@@ -52,7 +50,8 @@
 </div>
 
 @functions {
-    public class ListModel : AdminPageModel
+    [Authorize(Roles = "Admin")]
+    public class ListModel : PageModel
     {
         public UserManager<IdentityUser> UserManager;
         public ListModel(UserManager<IdentityUser> userManager)

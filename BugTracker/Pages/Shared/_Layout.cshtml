@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Bug Tracker</title>
     <!-- DataTables-->
-    <link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
-    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
     <link rel="stylesheet" href="~/Bootstrap/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -22,12 +21,16 @@
             <a href="#" class="sidebar-toggler text-gray-500 mr-4 lead">
                 <i class="fas fa-align-left"></i>
             </a>
+            @*
+                // Assumes user clicks from index
             @{
-                if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-                {
-                    <a class="btn btn-primary" asp-page="Projects/Create">New Project</a>
-                }
+            if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+            {
+                <a class="btn btn-primary" asp-page="Projects/Create">New Project</a>
             }
+            }
+            *@
+
             <a asp-page="/Index" class="navbar-brand font-weight-bold text-uppercase text-base">
                 <i class="fas fa-bug mr-1"></i>Bug Tracker
             </a>
@@ -52,7 +55,7 @@
                     <li class="sidebar-list-item"><a asp-page="/Users/List" class="sidebar-link text-muted"><i class="fas fa-users mr-3 text-gray"></i><span>Manage Users</span></a></li>
                     <li class="sidebar-list-item"><a asp-page="/Roles/List" class="sidebar-link text-muted"><i class="fas fa-user-lock mr-3 text-gray"></i><span>Manage Roles</span></a></li>
                 }
-                </ul>
+            </ul>
         </div>
         <div class="page-holder w-100 d-flex flex-wrap">
             <div class="container-fluid">
@@ -72,8 +75,7 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="~/Bootstrap/js/charts-custom.js"></script>
     <script src="~/Bootstrap/js/front.js"></script>
-    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
-
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function () {
             $('table').DataTable();

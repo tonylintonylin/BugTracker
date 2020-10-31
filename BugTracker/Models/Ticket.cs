@@ -32,14 +32,15 @@ namespace BugTracker.Models
         public string CreatorID { get; set; }
 
         // the developer working on ticket
-        [Required]
+    
         [Display(Name = "Assign To Developer")]
+        [Required]
         public string DeveloperID { get; set; }
         public IdentityUser Developer { get; set; }
 
         // many tickets are assigned to project
-        [Required]
         [Display(Name = "Assign to Project")]
+        [Required]
         public int ProjectID { get; set; }
         public Project Project { get; set; }
     }

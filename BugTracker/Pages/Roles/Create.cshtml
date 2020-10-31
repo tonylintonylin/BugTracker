@@ -26,7 +26,8 @@
 </div>
 
 @functions {
-    public class CreateModel : AdminPageModel
+    [Authorize(Roles = "Admin")]
+    public class CreateModel : PageModel
     {
         public RoleManager<IdentityRole> RoleManager;
         public CreateModel(UserManager<IdentityUser> userManager,
