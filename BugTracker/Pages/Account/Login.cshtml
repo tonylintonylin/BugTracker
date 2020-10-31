@@ -1,0 +1,68 @@
+﻿@page
+@model LoginModel
+
+<div class="row align-items-center py-5">
+    <div class="col-lg-5 px-lg-4">
+        <div class="m-1 text-danger" asp-validation-summary="All"></div>
+        <h1 class="text-base text-primary text-uppercase mb-4">Bug Tracker</h1>
+        <h2 class="mb-4">Welcome back!</h2>
+        <form method="post">
+            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+            <div class="form-group">
+                <label>UserName</label>
+                <input class="form-control border-0 shadow form-control-lg" asp-for="UserName" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input asp-for="Password" type="password" class="form-control border-0 shadow form-control-lg" />
+            </div>
+            <button class="btn btn-primary" type="submit">Log In</button>
+            <h6 class="my-3">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="./Register">Don't have an account? Register now</a>
+            </h6>
+        </form>
+    </div>
+    <div class="col-5 col-lg-7 mx-auto mb-5 mb-lg-0">
+        <div class="pr-lg-5"><img src="/Bootstrap/img/illustration.svg" alt="" class="img-fluid"></div>
+    </div>
+</div>
+
+@functions {
+    [AllowAnonymous]
+    public class LoginModel : PageModel
+    {
+        private SignInManager<IdentityUser> signInManager;
+
+        public LoginModel(SignInManager<IdentityUser> signinMgr)
+        {
+            signInManager = signinMgr;
+        }
+
+        [BindProperty]
+        [Required]
+        public string UserName { get; set; }
+
+        [BindProperty]
+        [Required]
+        public string Password { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string ReturnUrl { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (ModelState.IsValid)
+            {
+                Microsoft.AspNetCore.Identity.SignInResult result =
+                await signInManager.PasswordSignInAsync(UserName, Password,
+                false, false);
+                if (result.Succeeded)
+                {
+                    return Redirect(ReturnUrl ?? "/");
+                }
+                ModelState.AddModelError("", "Invalid username or password");
+            }
+            return Page();
+        }
+    }
+}

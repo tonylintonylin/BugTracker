@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Bug Tracker</title>
+    <!-- DataTables-->
+    <link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="~/Bootstrap/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- Google fonts - Popppins for copy-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="~/Bootstrap/css/style.default.css" id="theme-stylesheet">
+</head>
+<body>
+    <!-- navbar-->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+            <a href="#" class="sidebar-toggler text-gray-500 mr-4 lead">
+                <i class="fas fa-align-left"></i>
+            </a>
+            @{
+                if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                {
+                    <a class="btn btn-primary" asp-page="Projects/Create">New Project</a>
+                }
+            }
+            <a asp-page="/Index" class="navbar-brand font-weight-bold text-uppercase text-base">
+                <i class="fas fa-bug mr-1"></i>Bug Tracker
+            </a>
+            <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+                <li class="nav-item mr-3">
+                    <a href="https://github.com/tonylintonylin" class="font-weight-bold text-uppercase text-base text-green">Created By Tony Lin</a>
+                </li>
+                <li class="nav-item">
+                    <partial name="_LoginPartial" />
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="d-flex align-items-stretch">
+        <div id="sidebar" class="sidebar py-3">
+            <ul class="sidebar-menu list-unstyled">
+                <li class="sidebar-list-item"><a asp-page="/Index" class="sidebar-link text-muted"><i class="fas fa-home mr-3 text-gray"></i><span>Home</span></a></li>
+                <li class="sidebar-list-item"><a asp-page="/Projects/Index" class="sidebar-link text-muted"><i class="fas fa-project-diagram mr-3 text-gray"></i><span>Projects</span></a></li>
+                <li class="sidebar-list-item"><a asp-page="/Projects/Tickets/Index" class="sidebar-link text-muted"><i class="fas fa-tasks mr-3 text-gray"></i><span>Tickets</span></a></li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="sidebar-list-item"><a asp-page="/Users/List" class="sidebar-link text-muted"><i class="fas fa-users mr-3 text-gray"></i><span>Manage Users</span></a></li>
+                    <li class="sidebar-list-item"><a asp-page="/Roles/List" class="sidebar-link text-muted"><i class="fas fa-user-lock mr-3 text-gray"></i><span>Manage Roles</span></a></li>
+                }
+                </ul>
+        </div>
+        <div class="page-holder w-100 d-flex flex-wrap">
+            <div class="container-fluid">
+                <section class="py-3">
+                    @RenderBody()
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript files-->
+    <script src="~/Bootstrap/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Bootstrap/vendor/popper.js/umd/popper.min.js"></script>
+    <script src="~/Bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Bootstrap/vendor/jquery.cookie/jquery.cookie.js"></script>
+    <script src="~/Bootstrap/vendor/chart.js/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="~/Bootstrap/js/charts-custom.js"></script>
+    <script src="~/Bootstrap/js/front.js"></script>
+    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('table').DataTable();
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

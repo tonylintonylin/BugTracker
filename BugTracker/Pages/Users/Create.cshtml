@@ -1,0 +1,75 @@
+﻿@page
+@model CreateModel
+
+<div class="card">
+    <div class="card-header">
+        <a class="btn btn-outline-primary" asp-page="list">Back to Users</a>
+        <h3 class="text-uppercase mb-0">
+            <br />
+            Create User
+        </h3>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <input name="UserName" class="form-control" value="@Model.UserName" />
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input name="Email" class="form-control" value="@Model.Email" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input name="Password" class="form-control" value="@Model.Password" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@functions {
+    public class CreateModel : AdminPageModel
+    {
+        public UserManager<IdentityUser> UserManager;
+        public CreateModel(UserManager<IdentityUser> usrManager)
+        {
+            UserManager = usrManager;
+        }
+        [BindProperty]
+        [Required]
+        public string UserName { get; set; }
+        [BindProperty]
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [BindProperty]
+        [Required]
+        public string Password { get; set; }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityUser user =
+                new IdentityUser { UserName = UserName, Email = Email };
+                IdentityResult result =
+                await UserManager.CreateAsync(user, Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToPage("List");
+                }
+                foreach (IdentityError err in result.Errors)
+                {
+                    ModelState.AddModelError("", err.Description);
+                }
+            }
+            return Page();
+        }
+    }
+}

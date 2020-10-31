@@ -1,0 +1,26 @@
+﻿@page
+@model LogoutModel
+<div class="row align-items-center py-5">
+    <div class="col-lg-5 px-lg-4">
+        <h1 class="text-base text-primary text-uppercase mb-4">Logged Out</h1>
+        <h2 class="mb-4">You are logged out</h2>
+        <a asp-page="Login" class="btn btn-secondary">OK</a>
+    </div>
+    <div class="col-5 col-lg-7 mx-auto mb-5 mb-lg-0">
+        <div class="pr-lg-5"><img src="/Bootstrap/img/illustration.svg" alt="" class="img-fluid"></div>
+    </div>
+</div>
+@functions {
+    public class LogoutModel : PageModel
+    {
+        private SignInManager<IdentityUser> signInManager;
+        public LogoutModel(SignInManager<IdentityUser> signInMgr)
+        {
+            signInManager = signInMgr;
+        }
+        public async Task OnGetAsync()
+        {
+            await signInManager.SignOutAsync();
+        }
+    }
+}

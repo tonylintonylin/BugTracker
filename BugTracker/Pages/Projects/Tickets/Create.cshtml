@@ -1,0 +1,69 @@
+﻿@page
+@model BugTracker.Pages.Tickets.CreateModel
+@using BugTracker.Models
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="card">
+    <div class="card-header">
+        <a class="btn btn-outline-primary" onclick='history.go(-1)'>Back</a>
+        <h3 class="text-uppercase mb-0">
+            <br />
+            Create Ticket
+        </h3>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Ticket.Title" class="control-label"></label>
+                            <input asp-for="Ticket.Title" class="form-control" />
+                            <span asp-validation-for="Ticket.Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ticket.Description" class="control-label"></label>
+                            <input asp-for="Ticket.Description" class="form-control" />
+                            <span asp-validation-for="Ticket.Description" class="text-danger"></span>
+                        </div>
+                        @*
+
+          @foreach (IdentityUser user in Model.Users)
+        {
+            <div>@user.Id</div>
+            <div>@user.UserName</div>
+            <div>@user.Email</div>
+        }
+                        *@
+
+                        <div class="form-group">
+                            <label asp-for="Ticket.DeveloperID" class="control-label"></label>
+                            <select asp-for="Ticket.DeveloperID" class="form-control" asp-items="ViewBag.DeveloperID">
+                                <option value="none" selected>
+                                    Select a Developer
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ticket.ProjectID" class="control-label"></label>
+                            <select asp-for="Ticket.ProjectID" class="form-control" asp-items="ViewBag.ProjectID">
+                                <option value="none" selected>
+                                    Select a Project
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

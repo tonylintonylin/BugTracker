@@ -1,0 +1,22 @@
+﻿@page
+@model BugTracker.Pages.Tickets.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-uppercase mb-0">
+            Are You Sure You Want To Delete @Model.Ticket.Title?
+        </h3>
+        <div class="card-body">
+            <div class="row">
+                <form method="post">
+                    <input type="hidden" asp-for="Ticket.ID" />
+                    <a class="btn btn-lg mr-5 btn-outline-primary" onclick='history.go(-1)'>Back</a>
+                    <input type="submit" value="Delete" class="float-right btn btn-lg btn-danger" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

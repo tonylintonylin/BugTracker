@@ -1,0 +1,135 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="container-fluid px-xl-5">
+    <section class="py-5">
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                    <div class="flex-grow-1 d-flex align-items-center">
+                        <div class="dot mr-3 bg-blue"></div>
+                        <div class="text">
+                            <h6 class="mb-0">Projects in Progress</h6>
+                            <span class="text-gray">
+                                @{
+                                    var projectsInProgress = 0;
+                                    foreach (var proj in Model.Projects)
+                                    {
+                                        foreach (var tick in proj.Tickets)
+                                        {
+                                            if (tick.Status != Status.Completed)
+                                            {
+                                                projectsInProgress++;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    @projectsInProgress;
+                                }
+                            </span>
+                        </div>
+                    </div>
+                    <div class="icon text-white bg-blue"><i class="fas fa-project-diagram"></i></div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                    <div class="flex-grow-1 d-flex align-items-center">
+                        <div class="dot mr-3 bg-violet"></div>
+                        <div class="text">
+                            <h6 class="mb-0">Projects Completed</h6>
+                            <span class="text-gray">
+                                @{
+                                    var projectsCompleted = 0;
+                                    foreach (var proj in Model.Projects)
+                                    {
+                                        projectsCompleted++;
+                                        foreach (var tick in proj.Tickets)
+                                        {
+                                            if (tick.Status != Status.Completed)
+                                            {
+                                                projectsCompleted--;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    @projectsCompleted;
+                                }
+                            </span>
+                        </div>
+                    </div>
+                    <div class="icon text-white bg-violet"><i class="fas fa-users"></i></div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                    <div class="flex-grow-1 d-flex align-items-center">
+                        <div class="dot mr-3 bg-red"></div>
+                        <div class="text">
+                            <h6 class="mb-0">Unresolved Tickets</h6>
+                            <span class="text-gray">
+                                @{
+                                    var unresolvedTickets = 0;
+                                    foreach (var proj in Model.Projects)
+                                    {
+                                        foreach (var tick in proj.Tickets)
+                                        {
+                                            if (tick.Status != Status.Completed)
+                                            {
+                                                unresolvedTickets++;
+                                            }
+                                        }
+                                    }
+                                    @unresolvedTickets;
+                                }
+                            </span>
+                        </div>
+                    </div>
+                    <div class="icon text-white bg-red"><i class="fa fa-bug"></i></div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                    <div class="flex-grow-1 d-flex align-items-center">
+                        <div class="dot mr-3 bg-green"></div>
+                        <div class="text">
+                            <h6 class="mb-0">Tickets Completed</h6>
+                            <span class="text-gray">
+                                @{
+                                    var completedTickets = 0;
+                                    foreach (var proj in Model.Projects)
+                                    {
+                                        foreach (var tick in proj.Tickets)
+                                        {
+                                            if (tick.Status == Status.Completed)
+                                            {
+                                                completedTickets++;
+                                            }
+                                        }
+                                    }
+                                    @completedTickets;
+                                }
+                            </span>
+                        </div>
+                    </div>
+                    <div class="icon text-white bg-green"><i class="fas fa-ticket-alt"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="jumbotron">
+        <h1>Welcome @User.Identity.Name, To Bug Tracker!</h1><br />
+        <p>New to Bug Tracker?</p>
+        <p>
+            @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+            {
+                <a asp-page="Projects/Create" class="btn btn-primary btn-large mr-3">Create Your First Project »</a>
+            }
+            <a asp-page="Projects/Tickets/Index" class="btn btn-outline-primary btn-large">See All Tickets »</a>
+        </p>
+    </div>
+</div>

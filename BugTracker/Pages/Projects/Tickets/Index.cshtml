@@ -1,0 +1,78 @@
+﻿@page
+@model BugTracker.Pages.Tickets.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-uppercase mb-0">
+            All Tickets
+        </h3><br />
+            @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+            {
+                <a class="btn btn-primary float-left " asp-page="Create">Create New Ticket</a>
+            }       
+    </div>
+
+    <div class="card-body">
+        <table id="" class="display table table-hover table-bordered card-text">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ticket[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ticket[0].Description)
+                    </th>
+                    <th>
+                        In Project
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ticket[0].Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ticket[0].Creator)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Ticket)
+                {
+                <tr>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@item.ID">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Project.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Creator)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary my-1" asp-page="./Details" asp-route-id="@item.ID">Details</a>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                        {
+                        <a class="btn btn-outline-info my-1" asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
+                        <a class="btn btn-danger my-1" asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                        }
+                    </td>
+                </tr>            
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

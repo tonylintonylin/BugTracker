@@ -1,0 +1,140 @@
+﻿@page
+@model BugTracker.Pages.Projects.IndexModel
+
+@{
+    ViewData["Title"] = "All Projects";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-uppercase mb-0">
+            All Projects
+        </h3><br />
+        @{
+            if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+            {
+                <a class="btn btn-primary float-left " asp-page="Create">Create New Project</a>
+            }
+            <!--
+                else
+            {
+                <form asp-page="./Index" method="get">
+                    <div class="form-actions no-color float-right my-2">
+                        Find By Name/Description:
+                        <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+                        <input type="submit" value="Search" class="btn btn-primary" />
+                        <a class="btn btn-outline-primary" asp-page="./Index">Back to Full List</a>
+                    </div>
+                </form>
+            }
+            -->
+        }
+    </div>
+
+    <div class="card-body">
+        <table id="" class="display table table-hover table-bordered card-text">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Created By
+                    </th>
+                    <th>
+                        Time Created
+                    </th>
+                    <th>
+                        Unresolved Tickets
+                    </th>
+                    <!--<th>
+        <a asp-page="./Index" asp-route-sortOrder="@Model.TicketSort" asp-route-currentFilter="@Model.CurrentFilter">
+            Unresolved Tickets
+        </a>
+    </th>-->
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    foreach (var item in Model.Projects)
+                    {
+                                <tr>
+                                    <td>
+                                        <a asp-page="./Details" asp-route-id="@item.ProjectID">
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @*
+            @{
+                if (item.Description.Length > 30)
+                {
+                    @item.Description.Substring(0, Math.Min(item.Description.Length, 30));
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Description);
+                }
+            }
+                                        *@
+                                        @Html.DisplayFor(modelItem => item.Description);
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Creator)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreationDate)
+                                    </td>
+                                    @foreach (var ticket in item.Tickets)
+                                    {
+                                        if (!(ticket.Status == Status.Completed))
+                                        {
+                                            item.UnresolvedTickets++;
+                                        }
+                                    }
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UnresolvedTickets)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary my-1" asp-page="./Details" asp-route-id="@item.ProjectID">Details</a>
+
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                    {
+                                        <a class="btn btn-danger my-1" asp-page="./Delete" asp-route-id="@item.ProjectID">Delete</a>
+                                    }
+                                    </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        @*
+                    @{
+            var prevDisabled = !Model.Projects.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.Projects.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-page="./Index"
+           asp-route-sortOrder="@Model.CurrentSort"
+           asp-route-pageIndex="@(Model.Projects.PageIndex - 1)"
+           asp-route-currentFilter="@Model.CurrentFilter"
+           class="btn btn-primary @prevDisabled">
+            Previous
+        </a>
+        <a asp-page="./Index"
+           asp-route-sortOrder="@Model.CurrentSort"
+           asp-route-pageIndex="@(Model.Projects.PageIndex + 1)"
+           asp-route-currentFilter="@Model.CurrentFilter"
+           class="btn btn-primary @nextDisabled">
+            Next
+        </a>
+        *@
+    </div>
+</div>

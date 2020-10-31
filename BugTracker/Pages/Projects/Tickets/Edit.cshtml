@@ -1,0 +1,65 @@
+﻿@page
+@model BugTracker.Pages.Tickets.EditModel
+@using BugTracker.Models
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="card">
+    <div class="card-header">
+        <a class="btn btn-outline-primary" onclick='history.go(-1)'>Back</a>
+        <h3 class="text-uppercase mb-0">
+            <br />
+            Edit @Model.Ticket.Title
+        </h3>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Ticket.ID" />
+                        <div class="form-group">
+                            <label asp-for="Ticket.Creator" class="control-label"></label>
+                            <input name="Creator" value="Ticket.Creator" asp-for="Ticket.Creator" class="form-control" disabled />
+                            <input name="Creator" type="hidden" value=@Model.Ticket.Creator />
+                            <span asp-validation-for="Ticket.Creator" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ticket.Title" class="control-label"></label>
+                            <input asp-for="Ticket.Title" class="form-control" />
+                            <span asp-validation-for="Ticket.Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ticket.Description" class="control-label"></label>
+                            <input asp-for="Ticket.Description" class="form-control" />
+                            <span asp-validation-for="Ticket.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ticket.Status" class="control-label"></label>
+                            <select asp-for="Ticket.Status" class="form-control" asp-items="Html.GetEnumSelectList<Status>()"></select>
+                            <span asp-validation-for="Ticket.Status" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ticket.DeveloperID" class="control-label"></label>
+                            <select asp-for="Ticket.DeveloperID" class="form-control" asp-items="ViewBag.DeveloperID"></select>
+                            <span asp-validation-for="Ticket.DeveloperID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ticket.ProjectID" class="control-label"></label>
+                            <select asp-for="Ticket.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>
+                            <span asp-validation-for="Ticket.ProjectID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
