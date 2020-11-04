@@ -11,16 +11,14 @@
         <div class="card mb-3">
             <div class="card">
                 <div class="card-header">
-                    <a class="btn btn-outline-secondary mb-4" onclick='history.go(-1)'>Back</a>
-                    @{
-                        if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-                        {
-                        <a class="btn btn-danger float-right" asp-page="./Delete" asp-route-id="@Model.Ticket.ID">Delete</a>
-                        <a class="btn btn-info float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Ticket.ID">Edit Ticket Details</a>
-                        }
-                    }
+                    <a class="btn btn-outline-primary mb-4" asp-page="../Details" asp-route-id="@Model.Ticket.ProjectID">To Project Tickets</a>
+                    <a class="btn btn-outline-secondary mb-4" asp-page="./Index">See All Tickets</a>
+                    <a class="btn btn-primary float-right" asp-page="./Create">Create another ticket</a>
+
                     <h3 class="text-uppercase mb-0">
                         @Html.DisplayFor(model => model.Ticket.Title)
+                        <a class="btn btn-danger float-right" asp-page="./Delete" asp-route-id="@Model.Ticket.ID">Delete</a>
+                        <a class="btn btn-info float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Ticket.ID">Edit Ticket Details</a>
                     </h3>
                 </div>
 

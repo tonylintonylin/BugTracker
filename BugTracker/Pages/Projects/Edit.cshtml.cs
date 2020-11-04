@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BugTracker.Pages.Projects
 {
-    [Authorize(Roles = "Admin, Project Manager")]
     public class EditModel : PageModel
     {
         private readonly BugTracker.Data.ApplicationDbContext _context;

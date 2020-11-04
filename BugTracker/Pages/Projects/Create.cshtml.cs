@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BugTracker.Pages.Projects
 {
-    [Authorize(Roles = "Admin, Project Manager")]
     public class CreateModel : DI_BasePageModel
     {
         public CreateModel(

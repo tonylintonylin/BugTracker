@@ -25,7 +25,7 @@ namespace BugTracker.Pages.Projects
         public Project Project { get; set; }
 
         public IEnumerable<IdentityUser> Users { get; set; }
-        public async Task<IActionResult> OnGetAsync(int? id, string sortOrder, string currentFilter, string searchString, int? pageIndex)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -36,6 +36,7 @@ namespace BugTracker.Pages.Projects
 
             Project = await Context.Projects
                 .Include(i => i.Tickets)
+                    .ThenInclude(i => i.Developer)
                 .FirstOrDefaultAsync(m => m.ProjectID == id);
 
             if (Project == null)

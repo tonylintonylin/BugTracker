@@ -15,8 +15,8 @@
                     @{
                         if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
                         {
-                            <a class="btn btn-danger float-right" asp-page="./Delete" asp-route-id="@Model.Project.ProjectID">Delete</a>
-                            <a class="btn btn-info float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Project.ProjectID">Edit Project Details</a>
+                        <a class="btn btn-danger float-right" asp-page="./Delete" asp-route-id="@Model.Project.ProjectID">Delete</a>
+                        <a class="btn btn-info float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Project.ProjectID">Edit Project Details</a>
                         }
                     }
                     <h3 class="text-uppercase mb-0">
@@ -46,8 +46,8 @@
                 </div>
             </div>
         </div>
-
-        <!--Users on Project-->
+        
+        <!--Users/History on Project-->
         <div class="card">
             <div class="card-header">
                 <h3 class="text-uppercase mb-0">User History on Project</h3>
@@ -63,7 +63,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{
+                      @*   @{
                             foreach (var ticket in Model.Project.Tickets)
                             {
                                 foreach (IdentityUser user in Model.Users)
@@ -89,13 +89,13 @@
                                 }
                             }
                         }
-
-                    </tbody>
-                </table>
-            </div>
+        *@
+        </tbody>
+        </table>
+    </div>
         </div>
     </div>
-
+    
     <!--Tickets-->
     <div class="col-lg-6">
         <div class="card">
@@ -118,7 +118,7 @@
                                 Title
                             </th>
                             <th>
-                                Created By
+                                Assigned To
                             </th>
                             <th>
                                 Status
@@ -127,6 +127,7 @@
                     </thead>
                     <tbody>
                         @{
+                            @* Less efficient method
                             for (int i = 0; i < Model.Project.Tickets.Count; i++)
                             {
                                 <tr>
@@ -136,7 +137,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Creator)
+                                        @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Developer.UserName)
                                     </td>
                                     <td>
                                         @if (Model.Project.Tickets.ElementAt(i).Status == Status.Completed)
@@ -168,6 +169,55 @@
                                                 <div class="text">
                                                     <h6 class="mb-0">
                                                         @Html.DisplayFor(model => model.Project.Tickets.ElementAt(i).Status)
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }*@
+                            
+                            foreach(var ticket in Model.Project.Tickets)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-page="./Tickets/Details" asp-route-id="@ticket.ID">
+                                            @ticket.Title
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @ticket.Developer.UserName
+                                    </td>
+                                    <td>
+                                        @if (ticket.Status == Status.Completed)
+                                        {
+                                            <div class="flex-grow-1 d-flex align-items-center">
+                                                <div class="dot-sm mr-3 bg-green"></div>
+                                                <div class="text">
+                                                    <h6 class="mb-0">
+                                                        @ticket.Status
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (ticket.Status == Status.InProgress)
+                                        {
+                                            <div class="flex-grow-1 d-flex align-items-center">
+                                                <div class="dot-sm mr-3 bg-blue"></div>
+                                                <div class="text">
+                                                    <h6 class="mb-0">
+                                                        @ticket.Status
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="flex-grow-1 d-flex align-items-center">
+                                                <div class="dot-sm mr-3 bg-red"></div>
+                                                <div class="text">
+                                                    <h6 class="mb-0">
+                                                        @ticket.Status
                                                     </h6>
                                                 </div>
                                             </div>

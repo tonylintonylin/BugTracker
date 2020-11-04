@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BugTracker.Pages.Projects
 {
-    [Authorize(Roles = "Admin, Project Manager")]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
