@@ -15,11 +15,11 @@
                     <a class="btn btn-outline-secondary mb-4" asp-page="./Index">See All Tickets</a>
                     <a class="btn btn-primary float-right" asp-page="./Create">Create another ticket</a>
 
-                    <h3 class="text-uppercase mb-0">
+                    <h2 class="text-uppercase mb-0">
                         @Html.DisplayFor(model => model.Ticket.Title)
-                        <a class="btn btn-danger float-right" asp-page="./Delete" asp-route-id="@Model.Ticket.ID">Delete</a>
-                        <a class="btn btn-info float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Ticket.ID">Edit Ticket Details</a>
-                    </h3>
+                        <a class="btn btn-danger btn-sm float-right" asp-page="./Delete" asp-route-id="@Model.Ticket.ID">Delete</a>
+                        <a class="btn btn-info btn-sm float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Ticket.ID">Edit Ticket Details</a>
+                    </h2>
                 </div>
 
                 <div class="card-body">

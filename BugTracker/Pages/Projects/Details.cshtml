@@ -15,13 +15,13 @@
                     @{
                         if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
                         {
-                        <a class="btn btn-danger float-right" asp-page="./Delete" asp-route-id="@Model.Project.ProjectID">Delete</a>
-                        <a class="btn btn-info float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Project.ProjectID">Edit Project Details</a>
+                        <a class="btn btn-danger btn-sm float-right" asp-page="./Delete" asp-route-id="@Model.Project.ProjectID">Delete</a>
+                        <a class="btn btn-info btn-sm float-right mr-3" asp-page="./Edit" asp-route-id="@Model.Project.ProjectID">Edit Project Details</a>
                         }
                     }
-                    <h3 class="text-uppercase mb-0">
+                    <h2 class="text-uppercase mb-0">
                         @Html.DisplayFor(model => model.Project.Name)
-                    </h3>
+                    </h2>
                 </div>
 
                 <div class="card-body">
