@@ -49,7 +49,7 @@ namespace BugTracker.Pages.Tickets
 
             ViewData["DeveloperID"] = new SelectList(Users, "Id", "UserName");
 
-            ViewData["ProjectID"] = new SelectList(Context.Projects, "ProjectID", "Description");
+            ViewData["ProjectID"] = new SelectList(Context.Projects, "ProjectID", "Name");
             return Page();
         }
 
