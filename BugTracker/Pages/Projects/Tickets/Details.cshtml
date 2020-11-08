@@ -29,6 +29,7 @@
                                 <th>Description</th>
                                 <th>In Project</th>
                                 <th>Status</th>
+                                <th>Priority</th>
                                 <th>Created By</th>
                                 <th>Created At</th>
                                 <th>Assigned To</th>
@@ -39,6 +40,7 @@
                                 <td>@Html.DisplayFor(model => model.Ticket.Description)</td>
                                 <td>@Html.DisplayFor(model => model.Ticket.Project.Name)</td>
                                 <td>@Html.DisplayFor(model => model.Ticket.Status)</td>
+                                <td>@Html.DisplayFor(model => model.Ticket.Priority)</td>
                                 <td>@Html.DisplayFor(model => model.Ticket.Creator)</td>
                                 <td>@Html.DisplayFor(model => model.Ticket.CreationDate)</td>
                                 <td>@Html.DisplayFor(model => model.Ticket.Developer.UserName)</td>

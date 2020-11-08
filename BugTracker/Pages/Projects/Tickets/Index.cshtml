@@ -36,6 +36,9 @@
                         @Html.DisplayNameFor(model => model.Ticket[0].Creator)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Ticket[0].Priority)
+                    </th>
+                    <th>
                         Action
                     </th>
                 </tr>
@@ -62,11 +65,14 @@
                         @Html.DisplayFor(modelItem => item.Creator)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Priority)
+                    </td>
+                    <td>
                         <a class="btn btn-primary my-1" asp-page="./Details" asp-route-id="@item.ID">Details</a>
                         @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
                         {
-                        <a class="btn btn-outline-info my-1" asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
-                        <a class="btn btn-danger my-1" asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                            <a class="btn btn-outline-info my-1" asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
+                            <a class="btn btn-danger my-1" asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
                         }
                     </td>
                 </tr>            

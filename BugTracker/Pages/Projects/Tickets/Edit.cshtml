@@ -18,9 +18,9 @@
                 <div class="col-md-4">
                     <form method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Ticket.ID" />
-                            <input type="hidden" asp-for="Ticket.Creator" />
-                            <input type="hidden" asp-for="Ticket.CreationDate" />
+                        <input type="hidden" asp-for="Ticket.ID" />
+                        <input type="hidden" asp-for="Ticket.Creator" />
+                        <input type="hidden" asp-for="Ticket.CreationDate" />
                         <div class="form-group">
                             <label asp-for="Ticket.Title" class="control-label"></label>
                             <input asp-for="Ticket.Title" class="form-control" />
@@ -35,6 +35,11 @@
                             <label asp-for="Ticket.Status" class="control-label"></label>
                             <select asp-for="Ticket.Status" class="form-control" asp-items="Html.GetEnumSelectList<Status>()"></select>
                             <span asp-validation-for="Ticket.Status" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ticket.Priority" class="control-label"></label>
+                            <select asp-for="Ticket.Priority" class="form-control" asp-items="Html.GetEnumSelectList<Priority>()"></select>
+                            <span asp-validation-for="Ticket.Priority" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Ticket.DeveloperID" class="control-label"></label>

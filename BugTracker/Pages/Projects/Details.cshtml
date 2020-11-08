@@ -123,6 +123,9 @@
                             <th>
                                 Status
                             </th>
+                            <th>
+                                Priority
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -179,51 +182,97 @@
                             
                             foreach(var ticket in Model.Project.Tickets)
                             {
-                                <tr>
-                                    <td>
-                                        <a asp-page="./Tickets/Details" asp-route-id="@ticket.ID">
-                                            @ticket.Title
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @ticket.Developer.UserName
-                                    </td>
-                                    <td>
-                                        @if (ticket.Status == Status.Completed)
-                                        {
-                                            <div class="flex-grow-1 d-flex align-items-center">
-                                                <div class="dot-sm mr-3 bg-green"></div>
-                                                <div class="text">
-                                                    <h6 class="mb-0">
-                                                        @ticket.Status
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        }
-                                        else if (ticket.Status == Status.InProgress)
-                                        {
-                                            <div class="flex-grow-1 d-flex align-items-center">
-                                                <div class="dot-sm mr-3 bg-blue"></div>
-                                                <div class="text">
-                                                    <h6 class="mb-0">
-                                                        @ticket.Status
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="flex-grow-1 d-flex align-items-center">
-                                                <div class="dot-sm mr-3 bg-red"></div>
-                                                <div class="text">
-                                                    <h6 class="mb-0">
-                                                        @ticket.Status
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        }
-                                    </td>
-                                </tr>
+                        <tr>
+                            <td>
+                                <a asp-page="./Tickets/Details" asp-route-id="@ticket.ID">
+                                    @ticket.Title
+                                </a>
+                            </td>
+                            <td>
+                                @ticket.Developer.UserName
+                            </td>
+                            <td>
+                                @if (ticket.Status == Status.Completed)
+                                {
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot-sm mr-3 bg-green"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">
+                                                @ticket.Status
+                                            </h6>
+                                        </div>
+                                    </div>
+                                }
+                                else if (ticket.Status == Status.InProgress)
+                                {
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot-sm mr-3 bg-blue"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">
+                                                @ticket.Status
+                                            </h6>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot-sm mr-3 bg-red"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">
+                                                @ticket.Status
+                                            </h6>
+                                        </div>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @if (ticket.Priority == Priority.Low)
+                                {
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot-sm mr-3 bg-violet"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">
+                                                @ticket.Priority
+                                            </h6>
+                                        </div>
+                                    </div>
+                                }
+                                else if (ticket.Priority == Priority.Medium)
+                                {
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot-sm mr-3 bg-green"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">
+                                                @ticket.Priority
+                                            </h6>
+                                        </div>
+                                    </div>
+                                }
+                                else if (ticket.Priority == Priority.High)
+                                {
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot-sm mr-3 bg-blue"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">
+                                                @ticket.Priority
+                                            </h6>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot-sm mr-3 bg-red"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">
+                                                @ticket.Priority
+                                            </h6>
+                                        </div>
+                                    </div>
+                                }
+                            </td>
+                        </tr>
                             }
                         }
                     </tbody>

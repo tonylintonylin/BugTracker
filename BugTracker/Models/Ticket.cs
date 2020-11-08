@@ -13,6 +13,14 @@ namespace BugTracker.Models
         InProgress,
         Completed
     }
+
+    public enum Priority
+    {
+        Low,
+        Medium,
+        High,
+        Urgent
+    }
     public class Ticket
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -21,6 +29,9 @@ namespace BugTracker.Models
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
+
+        [Required]
+        public Priority Priority { get; set; }
         public Status Status { get; set; }
 
         [DataType(DataType.Date)]
